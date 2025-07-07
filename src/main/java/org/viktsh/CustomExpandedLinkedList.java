@@ -3,10 +3,10 @@ package org.viktsh;
 import java.util.Arrays;
 
 public class CustomExpandedLinkedList<T> implements CustomList<T> {
-    private Node<T> head;
+    private Node head;
 
-    private static class Node <T>{
-        private Node<T> next;
+    private class Node{
+        private Node next;
         private T[] data;
 
         public Node() {
@@ -34,9 +34,9 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             return isFull;
         }
 
-        public Node<T> addToHead(T value) {
+        public Node addToHead(T value) {
             if (getFull()) {
-                Node<T> newNode = new Node<>(value);
+                Node newNode = new Node(value);
                 newNode.next = head;
                 return newNode;
             } else {
@@ -52,7 +52,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             }
         }
 
-        public Node<T> removeFromHead() {
+        public Node removeFromHead() {
             T[] temp = (T[]) new Object[data.length];
             for (int i = 1; i < data.length; i++) {
                 temp[i - 1] = data[i];
@@ -64,9 +64,9 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             return (getEmpty()) ? this.next : this;
         }
 
-        public Node<T> addToTail(T value) {
+        public Node addToTail(T value) {
             if (getFull()) {
-                Node<T> newNode = new Node<>(value);
+                Node newNode = new Node(value);
                 return newNode;
             } else {
                 for (int i = 0; i < data.length; i++) {
@@ -81,7 +81,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public void addToHead(T value) {
-        head = (isEmpty()) ? head = new Node<>(value) : head.addToHead(value);
+        head = (isEmpty()) ? head = new Node(value) : head.addToHead(value);
     }
 
     public void printHead() {
@@ -140,7 +140,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public void printAll() {
-        Node<T> currentNode = head;
+        Node currentNode = head;
         while (currentNode != null) {
             System.out.print(Arrays.toString(currentNode.data) + " ");
             currentNode = currentNode.next;
@@ -148,8 +148,8 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         System.out.println();
     }
 
-    private Node<T> getTail() {
-        Node<T> temp = head;
+    private Node getTail() {
+        Node temp = head;
         while (temp.next != null) {
             temp = temp.next;
         }
