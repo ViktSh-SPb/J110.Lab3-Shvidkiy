@@ -4,7 +4,7 @@ public class CustomLinkedList<T> implements CustomList<T>{
     private Node<T> head;
 
     private static class Node<T> {
-        private T data;
+        private final T data;
         private Node<T> next;
 
         public Node(T data) {

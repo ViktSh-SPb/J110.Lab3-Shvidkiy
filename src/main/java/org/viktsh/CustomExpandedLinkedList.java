@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class CustomExpandedLinkedList<T> implements CustomList<T> {
     private Node<T> head;
 
-    private class Node {
+    private static class Node <T>{
         private Node<T> next;
         private T[] data;
 
