@@ -58,7 +58,7 @@ public class CustomLinkedList<T> implements CustomList<T>{
     public void printTailDelete() {
         if (!isEmpty()) {
             System.out.println("tail is " + getTail().data);
-            Node currentNode = head;
+            Node<T> currentNode = head;
             if(currentNode.next==null) {
                 head = null;
             }else {
@@ -73,9 +73,9 @@ public class CustomLinkedList<T> implements CustomList<T>{
     @Override
     public boolean contains(T value) {
         boolean contains = false;
-        Node currentNode = head;
+        Node<T> currentNode = head;
         while (currentNode != null) {
-            if (currentNode.data == value) {
+            if (currentNode.data.equals(value)) {
                 contains = true;
                 break;
             }
@@ -102,7 +102,7 @@ public class CustomLinkedList<T> implements CustomList<T>{
     @Override
     public void deleteValue(T value){
         Node<T> currentNode = head;
-        Node<T> previousNode = new Node<>(null);
+        Node<T> previousNode = null;
         while (currentNode!=null){
             if(currentNode.data==value){
                 if(currentNode==head){
