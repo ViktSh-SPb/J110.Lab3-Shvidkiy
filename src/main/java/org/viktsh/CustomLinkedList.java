@@ -1,6 +1,12 @@
 package org.viktsh;
 
-public class CustomLinkedList<T> implements CustomList<T>{
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Spliterator;
+import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
+
+public class CustomLinkedList<T> implements CustomList<T>, Iterable<T>{
     private Node<T> head;
 
     private static class Node<T> {
@@ -91,7 +97,7 @@ public class CustomLinkedList<T> implements CustomList<T>{
 
     @Override
     public void printAll() {
-        Node currentNode = head;
+        Node<T> currentNode = head;
         while (currentNode != null) {
             System.out.print(currentNode.data + " ");
             currentNode = currentNode.next;
@@ -116,19 +122,48 @@ public class CustomLinkedList<T> implements CustomList<T>{
         }
     }
 
-    public void peek(int i){
-//        Node currentNode = head;
-//        while (currentNode!=null){
-//            currentNode.data= currentNode.data+i;
-//            currentNode=currentNode.next;
-//        }
+    public void processEach(Consumer<T> consumer){
+        for(T item : this){
+            consumer.accept(item);
+        }
     }
 
-    private Node getTail(){
-        Node temp = head;
+    private Node<T> getTail(){
+        Node<T> temp = head;
         while (temp.next!=null){
             temp=temp.next;
         }
         return temp;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Node<T> current = head;
+            @Override
+            public boolean hasNext() {
+                return current!=null;
+            }
+
+            @Override
+            public T next() {
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }
+                T data = current.data;
+                current=current.next;
+                return data;
+            }
+        };
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        Iterable.super.forEach(action);
+    }
+
+    @Override
+    public Spliterator<T> spliterator() {
+        return Iterable.super.spliterator();
     }
 }

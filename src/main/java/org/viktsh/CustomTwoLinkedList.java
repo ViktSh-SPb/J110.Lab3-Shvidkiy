@@ -1,5 +1,7 @@
 package org.viktsh;
 
+import java.util.function.Consumer;
+
 public class CustomTwoLinkedList<T> implements CustomList<T>{
     private Node<T> head;
     private Node<T> tail;
@@ -133,12 +135,9 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
         }
     }
 
-    public void peek(int i){
-//        Node currentNode = head;
-//        while (currentNode!=null){
-//            currentNode.data= currentNode.data+i;
-//            currentNode=currentNode.next;
-//        }
+    @Override
+    public void processEach(Consumer<T> consumer) {
+
     }
 
 

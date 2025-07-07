@@ -62,8 +62,8 @@ public class MainClass {
         lList.deleteValue(100);
         lList.printAll();
         //Выполенине действия, заданного в параметре метода для каждого значения из списка
-        System.out.println("Инкрементируем все значения из списка на 10:");
-        lList.peek(10);
+        System.out.println("Выполняем действие над всеми - выводим все на экран:");
+        lList.processEach(System.out::println);
         lList.printAll();
         //Для проверки данных методов для двусвязного списка можно исправить тип в объявлении списка lList
         //Далее проверим уникальные методы для двусвязного списка
@@ -120,11 +120,10 @@ public class MainClass {
         tlList.printAllReverse();
         //Выполнение действия, заданного в параметре метода, для каждого значения списка в прямом/обратном порядке
         System.out.println("Инкрементируем все значения на 2 в прямом порядке:");
-        tlList.peek(2);
+        //tlList.peek(2);
         tlList.printAll();
         System.out.println("Инкрементируем все значения на 2 в обратном порядке:");
-        tlList.peek(2);
+        //tlList.peek(2);
         tlList.printAll();
-
     }
 }

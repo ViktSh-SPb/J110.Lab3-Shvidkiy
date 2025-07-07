@@ -1,5 +1,7 @@
 package org.viktsh;
 
+import java.util.function.Consumer;
+
 public interface CustomList<T> {
     void addToHead(T data);
 
@@ -21,6 +23,6 @@ public interface CustomList<T> {
 
     void deleteValue(T value);
 
-    void peek(int i);
+    void processEach(Consumer<T> consumer);
 
 }

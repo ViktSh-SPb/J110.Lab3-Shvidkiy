@@ -1,6 +1,7 @@
 package org.viktsh;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 public class CustomExpandedLinkedList<T> implements CustomList<T> {
     private Node head;
@@ -130,11 +131,6 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     public void deleteValue(T value) {
     }
 
-    public void peek(int i) {
-    }
-
-    ;
-
     public boolean isEmpty() {
         return (head == null);
     }
@@ -154,5 +150,10 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             temp = temp.next;
         }
         return temp;
+    }
+
+    @Override
+    public void processEach(Consumer<T> consumer) {
+
     }
 }
