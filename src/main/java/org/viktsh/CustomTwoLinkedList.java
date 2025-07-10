@@ -1,10 +1,12 @@
 package org.viktsh;
 
-import java.util.function.Consumer;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class CustomTwoLinkedList<T> implements CustomList<T>{
     private Node<T> head;
     private Node<T> tail;
+
 
     private static class Node<T> {
         private T data;
@@ -135,12 +137,6 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
         }
     }
 
-    @Override
-    public void processEach(Consumer<T> consumer) {
-
-    }
-
-
     public void addArrayToHead(T[] input){
         CustomTwoLinkedList<T> tempList = new CustomTwoLinkedList<>();
         for (T i:input){
@@ -200,5 +196,26 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
         tail.next=input.head;
         input.head.prev=tail;
         tail=input.tail;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Node<T> current = head;
+            @Override
+            public boolean hasNext() {
+                return current!=null;
+            }
+
+            @Override
+            public T next() {
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }
+                T data = current.data;
+                current=current.next;
+                return data;
+            }
+        };
     }
 }

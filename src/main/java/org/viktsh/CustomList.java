@@ -2,7 +2,7 @@ package org.viktsh;
 
 import java.util.function.Consumer;
 
-public interface CustomList<T> {
+public interface CustomList<T> extends Iterable<T>{
     void addToHead(T data);
 
     void addToTail(T data);
@@ -23,6 +23,10 @@ public interface CustomList<T> {
 
     void deleteValue(T value);
 
-    void processEach(Consumer<T> consumer);
+    default void processEach(Consumer<T> consumer){
+        for(T item : this){
+            consumer.accept(item);
+        }
+    }
 
 }

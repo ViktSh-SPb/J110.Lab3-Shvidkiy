@@ -2,11 +2,8 @@ package org.viktsh;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
 
-public class CustomLinkedList<T> implements CustomList<T>, Iterable<T>{
+public class CustomLinkedList<T> implements CustomList<T>{
     private Node<T> head;
 
     private static class Node<T> {
@@ -78,16 +75,14 @@ public class CustomLinkedList<T> implements CustomList<T>, Iterable<T>{
 
     @Override
     public boolean contains(T value) {
-        boolean contains = false;
         Node<T> currentNode = head;
         while (currentNode != null) {
             if (currentNode.data.equals(value)) {
-                contains = true;
-                break;
+                return true;
             }
             currentNode = currentNode.next;
         }
-        return contains;
+        return false;
     }
 
     @Override
@@ -110,7 +105,7 @@ public class CustomLinkedList<T> implements CustomList<T>, Iterable<T>{
         Node<T> currentNode = head;
         Node<T> previousNode = null;
         while (currentNode!=null){
-            if(currentNode.data==value){
+            if(currentNode.data.equals(value)){
                 if(currentNode==head){
                     head = currentNode.next;
                 }else {
@@ -119,12 +114,6 @@ public class CustomLinkedList<T> implements CustomList<T>, Iterable<T>{
             }
             previousNode=currentNode;
             currentNode=currentNode.next;
-        }
-    }
-
-    public void processEach(Consumer<T> consumer){
-        for(T item : this){
-            consumer.accept(item);
         }
     }
 
@@ -157,13 +146,4 @@ public class CustomLinkedList<T> implements CustomList<T>, Iterable<T>{
         };
     }
 
-    @Override
-    public void forEach(Consumer<? super T> action) {
-        Iterable.super.forEach(action);
-    }
-
-    @Override
-    public Spliterator<T> spliterator() {
-        return Iterable.super.spliterator();
-    }
 }
