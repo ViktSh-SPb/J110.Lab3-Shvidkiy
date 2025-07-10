@@ -10,12 +10,14 @@ import java.util.List;
  */
 public class MainClass {
     public static void main(String[] args) {
-        CustomList<Integer> lList = new CustomTwoLinkedList<>();
+        System.out.println("\n──────────────────────────────");
+        System.out.println("Односвязный список");
+        System.out.println("──────────────────────────────");
+        System.out.println("Создаем односвязный список.");
+        CustomList<Integer> lList = new CustomLinkedList<>();
         //Добавление значения в начало списка
         System.out.println("Добавляем в начало 2, 1, 0.");
-        lList.addToHead(2);
-        lList.addToHead(1);
-        lList.addToHead(0);
+        for (int i=2;i>=0;i--) lList.addToHead(i);
         //Извлечение значения из начала списка без его удаления
         System.out.println("Первый элемент списка:");
         lList.printHead();
@@ -62,13 +64,19 @@ public class MainClass {
         lList.deleteValue(100);
         lList.printAll();
         //Выполенине действия, заданного в параметре метода для каждого значения из списка
-        System.out.println("Выполняем действие над всеми - выводим все на экран:");
-        lList.processEach(System.out::println);
+        System.out.println("Выполняем действие над всеми - выводим на экран, является ли элемент четным:");
+        lList.processEach(n->{
+            System.out.print(n+": ");
+            System.out.println(n%2==0);
+        });
+        System.out.println("Выводим все значения списка:");
         lList.printAll();
         //Для проверки данных методов для двусвязного списка можно исправить тип в объявлении списка lList
         //Далее проверим уникальные методы для двусвязного списка
 
-        System.out.println("\n\nДвусвязный список\n");
+        System.out.println("\n──────────────────────────────");
+        System.out.println("Двусвязный список");
+        System.out.println("──────────────────────────────");
         System.out.println("Создаем двусвязный список с числами от 9 до 11");
         CustomTwoLinkedList<Integer> tlList = new CustomTwoLinkedList<>();
         for (int i = 9; i < 12; i++) tlList.addToTail(i);
