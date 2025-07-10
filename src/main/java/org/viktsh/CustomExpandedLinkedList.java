@@ -1,12 +1,13 @@
 package org.viktsh;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class CustomExpandedLinkedList<T> implements CustomList<T> {
     private Node head;
 
-    private class Node{
+    private class Node<T>{
         private Node next;
         private T[] data;
 
@@ -153,7 +154,24 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     @Override
-    public void processEach(Consumer<T> consumer) {
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Node<T> current = head;
+            @Override
+            public boolean hasNext() {
+                return current!=null;
+            }
 
+            @Override
+            public T next() {
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }
+                T[] data = current.data;
+                current=current.next;
+                return data[0]; //исправить. Поставил заглушку
+            }
+        };
     }
+
 }
