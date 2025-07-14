@@ -15,6 +15,17 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             this.data = (T[]) new Object[3];
         }
 
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            for (int i=0;i<3;i++){
+                if(data[i]!=null){
+                    sb.append(data[i]).append(" ");
+                }
+            }
+            return sb.toString().trim();
+        }
+
         public Node(T value) {
             this.data = (T[]) new Object[3];
             this.data[0] = value;
@@ -41,10 +52,10 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
 
         public void addToNodeHead(T value) {
-            T[] temp = (T[]) new Object[data.length];
+            T[] temp = (T[]) new Object[3];
             temp[0] = value;
             for (int i = 1; i < data.length; i++) {
-                temp[i] = data[i + 1];
+                temp[i] = data[i-1];
             }
             data = temp;
         }
@@ -142,7 +153,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     public void printAll() {
         Node currentNode = head;
         while (currentNode != null) {
-            System.out.print(Arrays.toString(currentNode.data) + " ");
+            System.out.print(currentNode + " ");
             currentNode = currentNode.next;
         }
         System.out.println();
