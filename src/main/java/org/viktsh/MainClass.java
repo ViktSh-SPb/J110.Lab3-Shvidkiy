@@ -133,5 +133,17 @@ public class MainClass {
         System.out.println("Инкрементируем все значения на 2 в обратном порядке:");
         //tlList.peek(2);
         tlList.printAll();
+
+        System.out.println("\n──────────────────────────────");
+        System.out.println("Развернутый односвязный список");
+        System.out.println("──────────────────────────────");
+        System.out.println("Создаем развернутый односвязный список.");
+        CustomList<Integer> elList = new CustomExpandedLinkedList<>();
+        //Добавление значения в начало списка
+        System.out.println("Добавляем в начало 4, 3, 2, 1, 0.");
+        for (int i=4;i>=0;i--){
+            elList.addToHead(i);
+        };
+        elList.printAll();
     }
 }
