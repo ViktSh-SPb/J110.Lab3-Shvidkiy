@@ -133,5 +133,9 @@ public class MainClass {
         System.out.println("Инкрементируем все значения на 2 в обратном порядке:");
         //tlList.peek(2);
         tlList.printAll();
+
+        System.out.println("\n──────────────────────────────");
+        System.out.println("Развернутый односвязный список");
+        System.out.println("──────────────────────────────");
     }
 }

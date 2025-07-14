@@ -5,19 +5,23 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class CustomExpandedLinkedList<T> implements CustomList<T> {
-    private Node head;
+    private Node<T> head;
 
-    private class Node<T>{
-        private Node next;
+    private static class Node<T> {
+        private Node<T> next;
         private T[] data;
 
         public Node() {
-            this.data =(T[]) new Object[3];
+            this.data = (T[]) new Object[3];
         }
 
         public Node(T value) {
             this.data = (T[]) new Object[3];
             this.data[0] = value;
+        }
+
+        private Node(T[] data) {
+            this.data = data;
         }
 
         public boolean getEmpty() {
@@ -36,22 +40,13 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             return isFull;
         }
 
-        public Node addToHead(T value) {
-            if (getFull()) {
-                Node newNode = new Node(value);
-                newNode.next = head;
-                return newNode;
-            } else {
-                T[] temp = (T[]) new Object[data.length];
-                temp[0] = value;
-                int i = 0;
-                while (data[i] != null) {
-                    temp[i + 1] = data[i];
-                    i++;
-                }
-                data = temp;
-                return this;
+        public void addToNodeHead(T value) {
+            T[] temp = (T[]) new Object[data.length];
+            temp[0] = value;
+            for (int i = 1; i < data.length; i++) {
+                temp[i] = data[i + 1];
             }
+            data = temp;
         }
 
         public Node removeFromHead() {
@@ -83,7 +78,15 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public void addToHead(T value) {
-        head = (isEmpty()) ? head = new Node(value) : head.addToHead(value);
+        if (isEmpty()) {
+            head = new Node<>(value);
+        } else if (head.getFull()) {
+            Node<T> temp = new Node<>(value);
+            temp.next = head;
+            head = temp;
+        } else {
+            head.addToNodeHead(value);
+        }
     }
 
     public void printHead() {
@@ -157,18 +160,19 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private Node<T> current = head;
+
             @Override
             public boolean hasNext() {
-                return current!=null;
+                return current != null;
             }
 
             @Override
             public T next() {
-                if(!hasNext()){
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 T[] data = current.data;
-                current=current.next;
+                current = current.next;
                 return data[0]; //исправить. Поставил заглушку
             }
         };
