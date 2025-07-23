@@ -1,6 +1,5 @@
 package org.viktsh;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -18,8 +17,8 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
-            for (int i=0;i<3;i++){
-                if(data[i]!=null){
+            for (int i = 0; i < 3; i++) {
+                if (data[i] != null) {
                     sb.append(data[i]).append(" ");
                 }
             }
@@ -35,7 +34,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             this.data = data;
         }
 
-        public boolean getEmpty() {
+        public boolean isEmpty() {
             boolean isEmpty = true;
             for (T i : data) {
                 if (i != null) isEmpty = false;
@@ -55,27 +54,14 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             T[] temp = (T[]) new Object[3];
             temp[0] = value;
             for (int i = 1; i < data.length; i++) {
-                temp[i] = data[i-1];
+                temp[i] = data[i - 1];
             }
             data = temp;
         }
 
-        public Node removeFromHead() {
-            T[] temp = (T[]) new Object[data.length];
-            for (int i = 1; i < data.length; i++) {
-                temp[i - 1] = data[i];
-                if (data[i] == null) {
-                    break;
-                }
-            }
-            data = temp;
-            return (getEmpty()) ? this.next : this;
-        }
-
-        public Node addToTail(T value) {
+        public Node<T> addToTail(T value) {
             if (getFull()) {
-                Node newNode = new Node(value);
-                return newNode;
+                return (Node<T>) new Node(value);
             } else {
                 for (int i = 0; i < data.length; i++) {
                     if (data[i] == null) {
@@ -86,6 +72,20 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
                 return this;
             }
         }
+
+        public Node<T> removeFromHead() {
+            T[] temp = (T[]) new Object[data.length];
+            for (int i = 1; i < data.length; i++) {
+                temp[i - 1] = data[i];
+                if (data[i] == null) {
+                    break;
+                }
+            }
+            data = temp;
+            return (isEmpty()) ? this.next : this;
+        }
+
+
     }
 
     public void addToHead(T value) {
@@ -126,8 +126,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
 
     public void printTail() {
         if (!isEmpty()) {
-            Integer value;
-            Node tail = getTail();
+            Node<T> tail = getTail();
             for (int i = tail.data.length - 1; i >= 0; i--) {
                 if (tail.data[i] != null) {
                     System.out.println("Tail is " + tail.data[i]);
@@ -140,6 +139,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public boolean contains(T value) {
+
         return true;
     }
 
@@ -151,7 +151,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public void printAll() {
-        Node currentNode = head;
+        Node<T> currentNode = head;
         while (currentNode != null) {
             System.out.print(currentNode + " ");
             currentNode = currentNode.next;
@@ -159,8 +159,8 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         System.out.println();
     }
 
-    private Node getTail() {
-        Node temp = head;
+    private Node<T> getTail() {
+        Node<T> temp = head;
         while (temp.next != null) {
             temp = temp.next;
         }
@@ -171,20 +171,38 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private Node<T> current = head;
+            private int indexInNode = 0;
+
+            //ищет следующий непустой элемент
+            private void moveToNext() {
+                while (current != null) {
+                    //пропускаем null-значения в массиве
+                    while (indexInNode < current.data.length && current.data[indexInNode] == null) {
+                        indexInNode++;
+                    }
+                    //если нашли элемент, выходим
+                    if (indexInNode < current.data.length) {
+                        return;
+                    }
+                    //если в этом узле элементы закончились, идем к следующему
+                    current = current.next;
+                    indexInNode = 0;
+                }
+            }
 
             @Override
             public boolean hasNext() {
+                moveToNext();
                 return current != null;
             }
 
             @Override
             public T next() {
-                if (!hasNext()) {
+                moveToNext();
+                if (current==null) {
                     throw new NoSuchElementException();
                 }
-                T[] data = current.data;
-                current = current.next;
-                return data[0]; //исправить. Поставил заглушку
+                return current.data[indexInNode++];
             }
         };
     }
