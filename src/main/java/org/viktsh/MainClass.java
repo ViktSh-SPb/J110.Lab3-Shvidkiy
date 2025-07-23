@@ -145,8 +145,5 @@ public class MainClass {
             elList.addToHead(i);
         };
         elList.printAll();
-        for(int value: elList){
-            System.out.println("forEach: "+ value);
-        }
     }
 }

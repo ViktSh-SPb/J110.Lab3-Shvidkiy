@@ -34,7 +34,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             this.data = data;
         }
 
-        public boolean getEmpty() {
+        public boolean isEmpty() {
             boolean isEmpty = true;
             for (T i : data) {
                 if (i != null) isEmpty = false;
@@ -59,22 +59,9 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             data = temp;
         }
 
-        public Node removeFromHead() {
-            T[] temp = (T[]) new Object[data.length];
-            for (int i = 1; i < data.length; i++) {
-                temp[i - 1] = data[i];
-                if (data[i] == null) {
-                    break;
-                }
-            }
-            data = temp;
-            return (getEmpty()) ? this.next : this;
-        }
-
-        public Node addToTail(T value) {
+        public Node<T> addToTail(T value) {
             if (getFull()) {
-                Node newNode = new Node(value);
-                return newNode;
+                return (Node<T>) new Node(value);
             } else {
                 for (int i = 0; i < data.length; i++) {
                     if (data[i] == null) {
@@ -85,6 +72,20 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
                 return this;
             }
         }
+
+        public Node<T> removeFromHead() {
+            T[] temp = (T[]) new Object[data.length];
+            for (int i = 1; i < data.length; i++) {
+                temp[i - 1] = data[i];
+                if (data[i] == null) {
+                    break;
+                }
+            }
+            data = temp;
+            return (isEmpty()) ? this.next : this;
+        }
+
+
     }
 
     public void addToHead(T value) {
@@ -125,8 +126,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
 
     public void printTail() {
         if (!isEmpty()) {
-            Integer value;
-            Node tail = getTail();
+            Node<T> tail = getTail();
             for (int i = tail.data.length - 1; i >= 0; i--) {
                 if (tail.data[i] != null) {
                     System.out.println("Tail is " + tail.data[i]);
@@ -139,6 +139,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public boolean contains(T value) {
+
         return true;
     }
 
@@ -150,7 +151,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public void printAll() {
-        Node currentNode = head;
+        Node<T> currentNode = head;
         while (currentNode != null) {
             System.out.print(currentNode + " ");
             currentNode = currentNode.next;
@@ -158,8 +159,8 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         System.out.println();
     }
 
-    private Node getTail() {
-        Node temp = head;
+    private Node<T> getTail() {
+        Node<T> temp = head;
         while (temp.next != null) {
             temp = temp.next;
         }
