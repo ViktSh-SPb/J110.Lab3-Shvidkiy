@@ -55,22 +55,17 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             data = temp;
         }
 
-        public Node addToNodeTail(T value) {
-            if (isFull()) {
-                Node newNode = new Node(value);
-                return newNode;
-            } else {
-                for (int i = 0; i < data.length; i++) {
-                    if (data[i] == null) {
-                        data[i] = value;
-                        break;
-                    }
+        public Node<T> addToNodeTail(T value) {
+            for (int i=0; i<data.length;i++){
+                if(data[i]==null){
+                    data[i]=value;
+                    break;
                 }
-                return this;
             }
+            return this;
         }
 
-        public Node removeFromNodeHead() {
+        public Node<T> removeFromNodeHead() {
             T[] temp = (T[]) new Object[data.length];
             for (int i = 1; i < data.length; i++) {
                 temp[i - 1] = data[i];
@@ -95,6 +90,18 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
     }
 
+    public void addToTail(T value) {
+        if (isEmpty()) {
+            addToHead(value);
+        }
+        Node<T> tail = getTail();
+        if (tail.isFull()){
+            tail.next = tail.addToNodeTail(value);
+        } else {
+            tail.addToNodeTail(value);
+        }
+    }
+
     public void printHead() {
         System.out.println(head.data[0]);
     }
@@ -104,19 +111,6 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             System.out.println(head.data[0]);
             head = head.removeFromNodeHead();
         }
-    }
-
-    public void addToTail(T value) {
-        if (isEmpty()) {
-            addToHead(value);
-        } else {
-            if (getTail().isFull()) {
-                getTail().next = getTail().addToNodeTail(value);
-            } else {
-                getTail().addToNodeTail(value);
-            }
-        }
-
     }
 
     public void printTail() {
