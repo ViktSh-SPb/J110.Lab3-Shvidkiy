@@ -46,6 +46,19 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             return isFull;
         }
 
+        public T getNodeHead() {
+            return data[0];
+        }
+
+        public T getNodeTail() {
+            for (int i = data.length - 1; i >= 0; i--) {
+                if (data[i] != null){
+                    return data[i];
+                }
+            }
+            return null;
+        }
+
         public void addToNodeHead(T value) {
             T[] temp = (T[]) new Object[3];
             temp[0] = value;
@@ -56,9 +69,9 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
 
         public Node<T> addToNodeTail(T value) {
-            for (int i=0; i<data.length;i++){
-                if(data[i]==null){
-                    data[i]=value;
+            for (int i = 0; i < data.length; i++) {
+                if (data[i] == null) {
+                    data[i] = value;
                     break;
                 }
             }
@@ -74,17 +87,17 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
                 }
             }
             data = temp;
-            return (isEmpty()) ? this.next : this;
+            return this;
         }
 
-        public Node<T> removeFromNodeTail(){
-            for (int i = 1; i<data.length; i++){
-                if(data[i]==null){
-                    data[i-1] = null;
+        public Node<T> removeFromNodeTail() {
+            for (int i = data.length - 1; i >= 0; i--) {
+                if (data[i] != null) {
+                    data[i] = null;
                     return this;
                 }
             }
-            data[data.length-1]=null;
+            data[data.length - 1] = null;
             return this;
         }
 
@@ -102,18 +115,6 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
     }
 
-    public void addToTail(T value) {
-        if (isEmpty()) {
-            addToHead(value);
-        }
-        Node<T> tail = getTail();
-        if (tail.isFull()){
-            tail.next = tail.addToNodeTail(value);
-        } else {
-            tail.addToNodeTail(value);
-        }
-    }
-
     public void printHead() {
         System.out.println(head.data[0]);
     }
@@ -122,17 +123,28 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         if (!isEmpty()) {
             System.out.println(head.data[0]);
             head = head.removeFromNodeHead();
+            if(head.isEmpty()){
+                head=head.next;
+            }
+        }
+    }
+
+    public void addToTail(T value) {
+        if (isEmpty()) {
+            addToHead(value);
+        }
+        Node<T> tail = getTail();
+        if (tail.isFull()) {
+            tail.next = tail.addToNodeTail(value);
+        } else {
+            tail.addToNodeTail(value);
         }
     }
 
     public void printTail() {
         if (!isEmpty()) {
             Node<T> tail = getTail();
-            for (int i = tail.data.length - 1; i >= 0; i--) {
-                if (tail.data[i] != null) {
-                    System.out.println("Tail is " + tail.data[i]);
-                }
-            }
+            tail
         }
     }
 
@@ -200,7 +212,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             @Override
             public T next() {
                 moveToNext();
-                if (current==null) {
+                if (current == null) {
                     throw new NoSuchElementException();
                 }
                 return current.data[indexInNode++];
