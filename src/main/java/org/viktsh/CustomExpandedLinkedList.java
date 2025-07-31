@@ -46,6 +46,19 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             return isFull;
         }
 
+        public T getNodeHead() {
+            return data[0];
+        }
+
+        public T getNodeTail() {
+            for (int i = data.length - 1; i >= 0; i--) {
+                if (data[i] != null){
+                    return data[i];
+                }
+            }
+            return null;
+        }
+
         public void addToNodeHead(T value) {
             T[] temp = (T[]) new Object[3];
             temp[0] = value;
@@ -56,16 +69,16 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
 
         public Node<T> addToNodeTail(T value) {
-            for (int i=0; i<data.length;i++){
-                if(data[i]==null){
-                    data[i]=value;
+            for (int i = 0; i < data.length; i++) {
+                if (data[i] == null) {
+                    data[i] = value;
                     break;
                 }
             }
             return this;
         }
 
-        public Node<T> removeFromNodeHead() {
+        public T removeFromNodeHead() {
             T[] temp = (T[]) new Object[data.length];
             for (int i = 1; i < data.length; i++) {
                 temp[i - 1] = data[i];
@@ -73,22 +86,22 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
                     break;
                 }
             }
+            T removed = data[0];
             data = temp;
-            return (isEmpty()) ? this.next : this;
+            return removed;
         }
 
-        public Node<T> removeFromHead() {
-            T[] temp = (T[]) new Object[data.length];
-            for (int i = 1; i < data.length; i++) {
-                temp[i - 1] = data[i];
-                if (data[i] == null) {
-                    break;
+        public T removeFromNodeTail() {
+            T removed = null;
+            for (int i = data.length - 1; i >= 0; i--) {
+                if (data[i] != null) {
+                    removed = data[i];
+                    data[i] = null;
+                    return removed;
                 }
             }
-            data = temp;
-            return (isEmpty()) ? this.next : this;
+            return removed;
         }
-
 
     }
 
@@ -104,41 +117,43 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
     }
 
-    public void addToTail(T value) {
-        if (isEmpty()) {
-            addToHead(value);
-        }
-        Node<T> tail = getTail();
-        if (tail.isFull()){
-            tail.next = tail.addToNodeTail(value);
-        } else {
-            tail.addToNodeTail(value);
-        }
-    }
-
     public void printHead() {
         System.out.println(head.data[0]);
     }
 
     public void printHeadDelete() {
         if (!isEmpty()) {
-            System.out.println(head.data[0]);
-            head = head.removeFromNodeHead();
+            System.out.println(head.removeFromNodeHead());
+            if(head.isEmpty()){
+                head=head.next;
+            }
+        }
+    }
+
+    public void addToTail(T value) {
+        if (isEmpty()) {
+            addToHead(value);
+        }
+        Node<T> tail = getTail();
+        if (tail.isFull()) {
+            tail.next = tail.addToNodeTail(value);
+        } else {
+            tail.addToNodeTail(value);
         }
     }
 
     public void printTail() {
         if (!isEmpty()) {
             Node<T> tail = getTail();
-            for (int i = tail.data.length - 1; i >= 0; i--) {
-                if (tail.data[i] != null) {
-                    System.out.println("Tail is " + tail.data[i]);
-                }
-            }
+            System.out.println(tail.getNodeTail());
         }
     }
 
     public void printTailDelete() {
+        if(!isEmpty()){
+            Node<T> tail = getTail();
+            System.out.println(tail.removeFromNodeTail());
+        }
     }
 
     public boolean contains(T value) {
@@ -202,7 +217,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             @Override
             public T next() {
                 moveToNext();
-                if (current==null) {
+                if (current == null) {
                     throw new NoSuchElementException();
                 }
                 return current.data[indexInNode++];
