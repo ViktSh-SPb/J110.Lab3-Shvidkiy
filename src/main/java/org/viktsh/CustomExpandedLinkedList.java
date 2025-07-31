@@ -77,18 +77,16 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
             return (isEmpty()) ? this.next : this;
         }
 
-        public Node<T> removeFromHead() {
-            T[] temp = (T[]) new Object[data.length];
-            for (int i = 1; i < data.length; i++) {
-                temp[i - 1] = data[i];
-                if (data[i] == null) {
-                    break;
+        public Node<T> removeFromNodeTail(){
+            for (int i = 1; i<data.length; i++){
+                if(data[i]==null){
+                    data[i-1] = null;
+                    return this;
                 }
             }
-            data = temp;
-            return (isEmpty()) ? this.next : this;
+            data[data.length-1]=null;
+            return this;
         }
-
 
     }
 
