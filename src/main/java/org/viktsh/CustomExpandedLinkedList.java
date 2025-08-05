@@ -157,11 +157,28 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public boolean contains(T value) {
-
-        return true;
+        for (T element : this) {
+            if (element.equals(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void deleteValue(T value) {
+        CustomExpandedLinkedList<T> temp = new CustomExpandedLinkedList<>();
+        if (this.contains(value)) {
+            for (T element : this) {
+                if (!element.equals(value)) {
+                    temp.addToTail(element);
+                }
+            }
+            if (temp.isEmpty()) {
+                this.head = null;
+            } else {
+                this.head = temp.head;
+            }
+        }
     }
 
     public boolean isEmpty() {
@@ -169,12 +186,25 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public void printAll() {
-        Node<T> currentNode = head;
-        while (currentNode != null) {
-            System.out.print(currentNode + " ");
-            currentNode = currentNode.next;
+        for (T element : this) {
+            System.out.println(element);
         }
-        System.out.println();
+    }
+
+    public void addArrayToHead(T[] input) {
+        CustomExpandedLinkedList<T> temp = new CustomExpandedLinkedList<>();
+        for (T t : input) {
+            temp.addToTail(t);
+        }
+        if(temp.isEmpty()){
+            return;
+        } else if (temp.getTail().isFull()) {
+            temp.getTail().next=this.head;
+        }else{
+            for(T element:this){
+                temp.addToTail(element);
+            }
+        }
     }
 
     private Node<T> getTail() {
