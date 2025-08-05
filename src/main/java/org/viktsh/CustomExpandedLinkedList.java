@@ -142,8 +142,12 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public boolean contains(T value) {
-
-        return true;
+        for (T element:this){
+            if(element.equals(value)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void deleteValue(T value) {
@@ -154,12 +158,9 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public void printAll() {
-        Node<T> currentNode = head;
-        while (currentNode != null) {
-            System.out.print(currentNode + " ");
-            currentNode = currentNode.next;
+        for (T element:this){
+            System.out.println(element);
         }
-        System.out.println();
     }
 
     private Node<T> getTail() {
