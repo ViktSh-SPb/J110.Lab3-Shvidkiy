@@ -2,8 +2,6 @@ package org.viktsh;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class CustomExpandedLinkedList<T> implements CustomList<T> {
@@ -222,6 +220,16 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         for (T t : input) {
             this.addToTail(t);
         }
+    }
+
+    public void addCustomEListToHead(CustomExpandedLinkedList<T> input){
+        addIterableToHead(input);
+        input.head=null;
+    }
+
+    public void addCustomEListToTail(CustomExpandedLinkedList<T> input){
+        addIterableToTail(input);
+        input.head=null;
     }
 
     private Node<T> getTail() {
