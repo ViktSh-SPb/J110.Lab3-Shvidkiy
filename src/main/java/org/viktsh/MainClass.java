@@ -146,5 +146,6 @@ public class MainClass {
         };
         elList.printAll();
         System.out.println("Check!");
+        System.out.println("Check1!");
     }
 }
