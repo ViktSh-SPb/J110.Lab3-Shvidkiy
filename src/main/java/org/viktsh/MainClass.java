@@ -145,5 +145,6 @@ public class MainClass {
             elList.addToHead(i);
         };
         elList.printAll();
+        System.out.println("Check!");
     }
 }
