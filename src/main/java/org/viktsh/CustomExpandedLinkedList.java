@@ -3,6 +3,7 @@ package org.viktsh;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class CustomExpandedLinkedList<T> implements CustomList<T> {
     private Node<T> head;
@@ -137,7 +138,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
         Node<T> tail = getTail();
         if (tail.isFull()) {
-            tail.next = tail.addToNodeTail(value);
+            tail.next = new Node<>(value);
         } else {
             tail.addToNodeTail(value);
         }
@@ -159,7 +160,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
 
     public boolean contains(T value) {
         for (T element : this) {
-            if (element.equals(value)) {
+            if (Objects.equals(value, element)) {
                 return true;
             }
         }
@@ -210,6 +211,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
                 temp.addToTail(element);
             }
         }
+        this.head=temp.head;
     }
 
     public void addArrayToTail(T[] input) {
