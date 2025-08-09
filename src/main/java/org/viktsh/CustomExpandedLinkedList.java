@@ -1,7 +1,9 @@
 package org.viktsh;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class CustomExpandedLinkedList<T> implements CustomList<T> {
     private Node<T> head;
@@ -52,7 +54,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
 
         public T getNodeTail() {
             for (int i = data.length - 1; i >= 0; i--) {
-                if (data[i] != null){
+                if (data[i] != null) {
                     return data[i];
                 }
             }
@@ -124,8 +126,8 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     public void printHeadDelete() {
         if (!isEmpty()) {
             System.out.println(head.removeFromNodeHead());
-            if(head.isEmpty()){
-                head=head.next;
+            if (head.isEmpty()) {
+                head = head.next;
             }
         }
     }
@@ -136,7 +138,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
         Node<T> tail = getTail();
         if (tail.isFull()) {
-            tail.next = tail.addToNodeTail(value);
+            tail.next = new Node<>(value);
         } else {
             tail.addToNodeTail(value);
         }
@@ -150,7 +152,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public void printTailDelete() {
-        if(!isEmpty()){
+        if (!isEmpty()) {
             Node<T> tail = getTail();
             System.out.println(tail.removeFromNodeTail());
         }
@@ -158,7 +160,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
 
     public boolean contains(T value) {
         for (T element : this) {
-            if (element.equals(value)) {
+            if (Objects.equals(value, element)) {
                 return true;
             }
         }
@@ -192,19 +194,44 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public void addArrayToHead(T[] input) {
+        addIterableToHead(Arrays.asList(input));
+    }
+
+    public void addIterableToHead(Iterable<T> input) {
         CustomExpandedLinkedList<T> temp = new CustomExpandedLinkedList<>();
         for (T t : input) {
             temp.addToTail(t);
         }
-        if(temp.isEmpty()){
+        if (temp.isEmpty()) {
             return;
         } else if (temp.getTail().isFull()) {
-            temp.getTail().next=this.head;
-        }else{
-            for(T element:this){
+            temp.getTail().next = this.head;
+        } else {
+            for (T element : this) {
                 temp.addToTail(element);
             }
         }
+        this.head=temp.head;
+    }
+
+    public void addArrayToTail(T[] input) {
+        addIterableToTail(Arrays.asList(input));
+    }
+
+    public void addIterableToTail(Iterable<T> input) {
+        for (T t : input) {
+            this.addToTail(t);
+        }
+    }
+
+    public void addCustomEListToHead(CustomExpandedLinkedList<T> input){
+        addIterableToHead(input);
+        input.head=null;
+    }
+
+    public void addCustomEListToTail(CustomExpandedLinkedList<T> input){
+        addIterableToTail(input);
+        input.head=null;
     }
 
     private Node<T> getTail() {
