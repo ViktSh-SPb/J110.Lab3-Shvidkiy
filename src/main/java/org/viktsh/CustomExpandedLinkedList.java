@@ -214,8 +214,14 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
     }
 
-    public void addIterableToTail(Iterable<T> input) {
+    public void addArrayToTail(T[] input) {
+        addIterableToTail(Arrays.asList(input));
+    }
 
+    public void addIterableToTail(Iterable<T> input) {
+        for (T t : input) {
+            this.addToTail(t);
+        }
     }
 
     private Node<T> getTail() {
