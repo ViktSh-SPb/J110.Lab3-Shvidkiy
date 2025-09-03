@@ -135,13 +135,15 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     public void addToTail(T value) {
         if (isEmpty()) {
             addToHead(value);
-        }
-        Node<T> tail = getTail();
-        if (tail.isFull()) {
-            tail.next = new Node<>(value);
         } else {
-            tail.addToNodeTail(value);
+            Node<T> tail = getTail();
+            if (tail.isFull()) {
+                tail.next = new Node<>(value);
+            } else {
+                tail.addToNodeTail(value);
+            }
         }
+
     }
 
     public void printTail() {
@@ -189,8 +191,9 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
 
     public void printAll() {
         for (T element : this) {
-            System.out.println(element);
+            System.out.print(element+" ");
         }
+        System.out.println();
     }
 
     public void addArrayToHead(T[] input) {

@@ -17,7 +17,7 @@ public class MainClass {
         CustomList<Integer> lList = new CustomLinkedList<>();
         //Добавление значения в начало списка
         System.out.println("Добавляем в начало 2, 1, 0.");
-        for (int i=2;i>=0;i--) lList.addToHead(i);
+        for (int i = 2; i >= 0; i--) lList.addToHead(i);
         //Извлечение значения из начала списка без его удаления
         System.out.println("Первый элемент списка:");
         lList.printHead();
@@ -65,9 +65,9 @@ public class MainClass {
         lList.printAll();
         //Выполенине действия, заданного в параметре метода для каждого значения из списка
         System.out.println("Выполняем действие над всеми - выводим на экран, является ли элемент четным:");
-        lList.processEach(n->{
-            System.out.print(n+": ");
-            System.out.println(n%2==0);
+        lList.processEach(n -> {
+            System.out.print(n + ": ");
+            System.out.println(n % 2 == 0);
         });
         System.out.println("Выводим все значения списка:");
         lList.printAll();
@@ -141,11 +141,60 @@ public class MainClass {
         CustomList<Integer> elList = new CustomExpandedLinkedList<>();
         //Добавление значения в начало списка
         System.out.println("Добавляем в начало 4, 3, 2, 1, 0.");
-        for (int i=4;i>=0;i--){
+        for (int i = 4; i >= 0; i--) {
             elList.addToHead(i);
-        };
+        }
+        ;
         elList.printAll();
-        System.out.println("Check!");
-        System.out.println("Check1!");
+        //Извлечение значения из начала списка без его удаления
+        System.out.println("Первый элемент списка:");
+        elList.printHead();
+        //Извлечение значения из начала списка с удалением из списка
+        System.out.println("Выводим первый элемент списка и удаляем.");
+        elList.printHeadDelete();
+        System.out.println("Теперь первый элемент:");
+        elList.printHead();
+        //Добавление значения в конец списка
+        System.out.println("Добавляем в конец 5, 6.");
+        elList.addToTail(5);
+        elList.addToTail(6);
+        //Извлечение значения из конца списка без его удаления
+        System.out.println("Последний элемент списка:");
+        elList.printTail();
+        //Извлечение значения из конца списка с удалением
+        System.out.println("Выводим последний элемент списка и удаляем.");
+        elList.printTailDelete();
+        System.out.println("Теперь последний элемент списка:");
+        elList.printTail();
+        //Определение, содержит ли список заданное значение, или нет
+        System.out.println("Содержит ли список значение 1: " + elList.contains(1));
+        System.out.println("Содержит ли список значение 10: " + elList.contains(10));
+        //Печать всех значений списка
+        System.out.print("Все значения списка: ");
+        elList.printAll();
+        //Определение, является ли список пустым
+        System.out.println("Является ли список пустым: " + elList.isEmpty());
+        System.out.println("Удаляем все элементы из списка.");
+        for (int i = 1; i < 6; i++) elList.deleteValue(i);
+        System.out.println("Является ли список пустым: " + elList.isEmpty());
+        //Печать всех значений списка
+        System.out.println("Все значения списка: ");
+        elList.printAll();
+        //Удаление заданного значения из списка
+        System.out.println("создаем новый список из 3,1,2,3,4,5,3");
+        for (int i = 1; i <6; i++) {
+            elList.addToTail(i);
+        }
+        elList.printAll();
+        elList.addToHead(3);
+        elList.addToTail(3);
+        System.out.print("Все значения списка: ");
+        elList.printAll();
+        System.out.println("Удаляем значения 100 из списка:");
+        elList.deleteValue(100);
+        elList.printAll();
+        System.out.println("Удаляем значения 3 из списка:");
+        elList.deleteValue(3);
+        elList.printAll();
     }
 }
