@@ -71,66 +71,120 @@ public class MainClass {
         });
         System.out.println("Выводим все значения списка:");
         lList.printAll();
-        //Для проверки данных методов для двусвязного списка можно исправить тип в объявлении списка lList
-        //Далее проверим уникальные методы для двусвязного списка
 
         System.out.println("\n──────────────────────────────");
         System.out.println("Двусвязный список");
         System.out.println("──────────────────────────────");
-        System.out.println("Создаем двусвязный список с числами от 9 до 11");
+        System.out.println("Создаем двусвязный список.");
         CustomTwoLinkedList<Integer> tlList = new CustomTwoLinkedList<>();
-        for (int i = 9; i < 12; i++) tlList.addToTail(i);
+        //Добавление значения в начало списка
+        System.out.println("Добавляем в начало 2, 1, 0.");
+        for (int i = 2; i >= 0; i--) tlList.addToHead(i);
+        //Извлечение значения из начала списка без его удаления
+        System.out.println("Первый элемент списка:");
+        tlList.printHead();
+        //Извлечение значения из начала списка с удалением из списка
+        System.out.println("Выводим первый элемент списка и удаляем.");
+        tlList.printHeadDelete();
+        System.out.println("Теперь первый элемент:");
+        tlList.printHead();
+        //Добавление значения в конец списка
+        System.out.println("Добавляем в конец 2, 3.");
+        tlList.addToTail(2);
+        tlList.addToTail(3);
+        //Извлечение значения из конца списка без его удаления
+        System.out.println("Последний элемент списка:");
+        tlList.printTail();
+        //Извлечение значения из конца списка с удалением
+        System.out.println("Выводим последний элемент списка и удаляем.");
+        tlList.printTailDelete();
+        System.out.println("Теперь последний элемент списка:");
+        tlList.printTail();
+        //Определение, содержит ли список заданное значение, или нет
+        System.out.println("Содержит ли список значение 1: " + tlList.contains(1));
+        System.out.println("Содержит ли список значение 10: " + tlList.contains(10));
+        //Определение, является ли список пустым
+        System.out.println("Является ли список пустым: " + tlList.isEmpty());
+        System.out.println("Удаляем оба элемента из списка.");
+        tlList.deleteValue(1);
+        tlList.deleteValue(2);
+        System.out.println("Является ли список пустым: " + tlList.isEmpty());
+        //Печать всех значений списка
+        System.out.println("Добавляем новые элементы.");
+        tlList.addToHead(100);
+        tlList.addToTail(4);
+        tlList.addToHead(3);
+        tlList.addToTail(5);
+        tlList.addToHead(2);
+        tlList.addToTail(100);
+        tlList.addToHead(1);
+        tlList.addToHead(100);
+        System.out.println("Выводим все значения списка:");
+        tlList.printAll();
+        //Удаление заданного значения из списка
+        System.out.println("Удаляем значения 100 из списка:");
+        tlList.deleteValue(100);
+        tlList.printAll();
+        //Выполенине действия, заданного в параметре метода для каждого значения из списка
+        System.out.println("Выполняем действие над всеми - выводим на экран, является ли элемент четным:");
+        tlList.processEach(n -> {
+            System.out.print(n + ": ");
+            System.out.println(n % 2 == 0);
+        });
+        System.out.println("Выводим все значения списка:");
         tlList.printAll();
         //Добавление всех значений заданного массива в начало списка с сохранением порядка
-        System.out.println("Добавляем значения массива из 3-х чисел (6, 7, 8) в начало списка:");
-        Integer[] arr = {6, 7, 8};
+        System.out.println("Добавляем значения массива из 3-х чисел (-2, -1, 0) в начало списка:");
+        Integer[] arr = {-2, -1, 0};
         tlList.addArrayToHead(arr);
         tlList.printAll();
         //Добавление всех значений заданной коллекции в начало списка с сохранением порядка
-        System.out.println("Добавляем коллекцию arrayList из трех элементов (3, 4, 5) в начало списка:");
-        List<Integer> al = new ArrayList<>(Arrays.asList(3, 4, 5));
+        System.out.println("Добавляем коллекцию arrayList из трех элементов (-5, -4, -3) в начало списка:");
+        List<Integer> al = new ArrayList<>(Arrays.asList(-5, -4, -3));
         tlList.addIterableToHead(al);
         tlList.printAll();
-        System.out.println("Добавляем коллекцию linkedList из трех элементов (0, 1, 2) в начало списка:");
-        List<Integer> ll = new LinkedList<>(Arrays.asList(0, 1, 2));
+        System.out.println("Добавляем коллекцию linkedList из трех элементов (-8, -7, -6) в начало списка:");
+        List<Integer> ll = new LinkedList<>(Arrays.asList(-8, -7, -6));
         tlList.addIterableToHead(ll);
         tlList.printAll();
         //Добавление всех значений заданного массива/коллекции в конец списка
-        System.out.println("Добавляем значения массива из 3-х чисел (12, 13, 14) в конец списка:");
-        Integer[] arr1 = {12, 13, 14};
+        System.out.println("Добавляем значения массива из 3-х чисел (6, 7, 8) в конец списка:");
+        Integer[] arr1 = {6, 7, 8};
         tlList.addArrayToTail(arr1);
         tlList.printAll();
-        System.out.println("Добавляем колелкцию arrayList из трех элементов (15, 16, 17) в конец списка:");
-        List<Integer> al1 = new ArrayList<>(Arrays.asList(15, 16, 17));
+        System.out.println("Добавляем коллекцию arrayList из трех элементов (9, 10, 11) в конец списка:");
+        List<Integer> al1 = new ArrayList<>(Arrays.asList(9, 10, 11));
         tlList.addIterableToTail(al1);
         tlList.printAll();
-        System.out.println("Добавляем коллекцию linkedList из трех элементов (18, 19, 20) в конец списка:");
-        List<Integer> ll1 = new ArrayList<>(Arrays.asList(18, 19, 20));
+        System.out.println("Добавляем коллекцию linkedList из трех элементов (12, 13, 14) в конец списка:");
+        List<Integer> ll1 = new ArrayList<>(Arrays.asList(12, 13, 14));
         tlList.addIterableToTail(ll1);
         tlList.printAll();
         //Поглощение списка другим списком с добавлением значений второго в начало/конец первого списка
-        System.out.println("Добавляем список headList со значениями -3, -2, -1 в начало списка:");
+        System.out.println("Добавляем список headList со значениями -9, -10, -11 в начало списка:");
         CustomTwoLinkedList<Integer> headList = new CustomTwoLinkedList<>();
-        headList.addToTail(-3);
-        headList.addToTail(-2);
-        headList.addToTail(-1);
+        headList.addToTail(-11);
+        headList.addToTail(-10);
+        headList.addToTail(-9);
         tlList.addCustomTwoLinkedListToHead(headList);
         tlList.printAll();
-        System.out.println("Добавляем список tailList со значениями 21, 22, 23 в конец списка:");
+        System.out.println("Добавляем список tailList со значениями 15, 16, 17 в конец списка:");
         CustomTwoLinkedList<Integer> tailList = new CustomTwoLinkedList<>();
-        tailList.addToTail(21);
-        tailList.addToTail(22);
-        tailList.addToTail(23);
+        tailList.addToTail(15);
+        tailList.addToTail(16);
+        tailList.addToTail(17);
         tlList.addCustomTwoLinkedListToTail(tailList);
         tlList.printAll();
         //Печать всех значений списка в обратном порядке
         System.out.println("Печатаем все значения списка в обратном порядке:");
         tlList.printAllReverse();
         //Выполнение действия, заданного в параметре метода, для каждого значения списка в прямом/обратном порядке
-        System.out.println("Инкрементируем все значения на 2 в прямом порядке:");
-        //tlList.peek(2);
+        System.out.println("Инкрементируем все значения на 2 в прямом порядке и выводим в строку:");
+        tlList.processEach(n->{n=n+2;
+            System.out.print(n+" ");});
+        System.out.println("\nИсходный список не изменился");
         tlList.printAll();
-        System.out.println("Инкрементируем все значения на 2 в обратном порядке:");
+        //System.out.println("Инкрементируем все значения на 2 в обратном порядке:");
         //tlList.peek(2);
         tlList.printAll();
 
@@ -196,5 +250,11 @@ public class MainClass {
         System.out.println("Удаляем значения 3 из списка:");
         elList.deleteValue(3);
         elList.printAll();
+        //Выполнение действия, заданного в параметре метода, для каждого значения списка
+        System.out.println("Выполняем действие над всеми - выводим на экран, является ли элемент четным:");
+        elList.processEach(n -> {
+            System.out.print(n + ": ");
+            System.out.println(n % 2 == 0);
+        });
     }
 }
