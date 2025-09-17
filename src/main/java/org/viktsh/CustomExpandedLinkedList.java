@@ -229,7 +229,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
 
     public void addCustomEListToHead(CustomExpandedLinkedList<T> input){
         addIterableToHead(input);
-        input.head=null;
+        //input.head=null;
     }
 
     public void addCustomEListToTail(CustomExpandedLinkedList<T> input){

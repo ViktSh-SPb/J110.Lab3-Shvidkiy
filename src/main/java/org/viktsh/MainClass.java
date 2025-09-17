@@ -184,21 +184,22 @@ public class MainClass {
             System.out.print(n+" ");});
         System.out.println("\nИсходный список не изменился");
         tlList.printAll();
-        //System.out.println("Инкрементируем все значения на 2 в обратном порядке:");
-        //tlList.peek(2);
+        System.out.println("Декрементируем все значения на 2 в обратном порядке:");
+        tlList.processEachReverse(n->{n=n-2;
+            System.out.print(n+" ");});
+        System.out.println("\nИсходный список не изменился");
         tlList.printAll();
 
         System.out.println("\n──────────────────────────────");
         System.out.println("Развернутый односвязный список");
         System.out.println("──────────────────────────────");
         System.out.println("Создаем развернутый односвязный список.");
-        CustomList<Integer> elList = new CustomExpandedLinkedList<>();
+        CustomExpandedLinkedList<Integer> elList = new CustomExpandedLinkedList<>();
         //Добавление значения в начало списка
         System.out.println("Добавляем в начало 4, 3, 2, 1, 0.");
         for (int i = 4; i >= 0; i--) {
             elList.addToHead(i);
         }
-        ;
         elList.printAll();
         //Извлечение значения из начала списка без его удаления
         System.out.println("Первый элемент списка:");
@@ -256,5 +257,49 @@ public class MainClass {
             System.out.print(n + ": ");
             System.out.println(n % 2 == 0);
         });
+        //Добавление всех значений заданного массива в начало списка с сохранением порядка
+        System.out.println("Добавляем значения массива из 4-х чисел (-3, -2, -1, 0) в начало списка:");
+        Integer[] array = {-3, -2, -1, 0};
+        elList.addArrayToHead(array);
+        elList.printAll();
+        //Добавление всех значений заданной коллекции в начало списка с сохранением порядка
+        System.out.println("Добавляем коллекцию arrayList из четырех элементов (-7, -6, -5, -4) в начало списка:");
+        List<Integer> alist = new ArrayList<>(Arrays.asList(-7, -6, -5, -4));
+        elList.addIterableToHead(alist);
+        elList.printAll();
+        System.out.println("Добавляем коллекцию linkedList из четырех элементов (-11, -10, -9, -8) в начало списка:");
+        List<Integer> llist = new LinkedList<>(Arrays.asList(-11, -10, -9, -8));
+        elList.addIterableToHead(llist);
+        elList.printAll();
+        //Добавление всех значений заданного массива/коллекции в конец списка
+        System.out.println("Добавляем значения массива из 2-х чисел (6, 7) в конец списка:");
+        Integer[] array1 = {6, 7};
+        elList.addArrayToTail(array1);
+        elList.printAll();
+        System.out.println("Добавляем коллекцию arrayList из двух элементов (8, 9) в конец списка:");
+        List<Integer> alist1 = new ArrayList<>(Arrays.asList(8, 9));
+        elList.addIterableToTail(alist1);
+        elList.printAll();
+        System.out.println("Добавляем коллекцию linkedList из двух элементов (10, 11) в конец списка:");
+        List<Integer> llist1 = new ArrayList<>(Arrays.asList(10, 11));
+        elList.addIterableToTail(llist1);
+        elList.printAll();
+        //Поглощение списка другим списком с добавлением значений второго в начало/конец первого списка
+        System.out.println("Добавляем список headList со значениями -12, -13, -14, -15 в начало списка:");
+        CustomExpandedLinkedList<Integer> headList1 = new CustomExpandedLinkedList<>();
+        headList1.addToTail(-15);
+        headList1.addToTail(-14);
+        headList1.addToTail(-13);
+        headList1.addToTail(-12);
+        elList.addCustomEListToHead(headList1);
+        elList.printAll();
+        System.out.println("Добавляем список tailList со значениями 12, 13, 14, 15 в конец списка:");
+        CustomExpandedLinkedList<Integer> tailList1 = new CustomExpandedLinkedList<>();
+        tailList1.addToTail(12);
+        tailList1.addToTail(13);
+        tailList1.addToTail(14);
+        tailList1.addToTail(15);
+        elList.addCustomEListToTail(tailList1);
+        elList.printAll();
     }
 }

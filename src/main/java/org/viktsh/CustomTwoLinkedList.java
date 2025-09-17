@@ -2,6 +2,7 @@ package org.viktsh;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
 public class CustomTwoLinkedList<T> implements CustomList<T>{
     private Node<T> head;
@@ -98,11 +99,7 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
 
     @Override
     public void printAll() {
-        Node<T> currentNode = head;
-        while (currentNode != null) {
-            System.out.print(currentNode.data + " ");
-            currentNode = currentNode.next;
-        }
+        processEach(item-> System.out.print(item+" "));
         System.out.println();
     }
 
@@ -196,6 +193,14 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
         tail.next=input.head;
         input.head.prev=tail;
         tail=input.tail;
+    }
+
+    public void processEachReverse(Consumer<T> consumer){
+        Node<T> currentNode = tail;
+        while (currentNode != null) {
+            consumer.accept(currentNode.data);
+            currentNode = currentNode.prev;
+        }
     }
 
     @Override
