@@ -1,6 +1,8 @@
 package org.viktsh;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class CustomLinkedList<T> implements CustomList<T>{
@@ -31,36 +33,41 @@ public class CustomLinkedList<T> implements CustomList<T>{
         if (isEmpty()) {
             head = new Node<>(data);
         } else {
-            getTail().next = new Node<>(data);
+            getTailNode().next = new Node<>(data);
         }
     }
 
     @Override
-    public void printHead() {
+    public T getHead() {
         if (!isEmpty()) {
-            System.out.println("head is " + head.data);
+            return head.data;
         }
+        return null;
     }
 
     @Override
-    public void printTail() {
+    public T getTail() {
         if (!isEmpty()) {
-            System.out.println("tail is " + getTail().data);
+            return getTailNode().data;
         }
+        return null;
     }
 
     @Override
-    public void printHeadDelete() {
+    public T getHeadDelete() {
+        T value = null;
         if (!isEmpty()) {
-            System.out.println("head is " + head.data);
+            value = head.data;
             head = head.next;
         }
+        return value;
     }
 
     @Override
-    public void printTailDelete() {
+    public T getTailDelete() {
+        T value = null;
         if (!isEmpty()) {
-            System.out.println("tail is " + getTail().data);
+            value = getTailNode().data;
             Node<T> currentNode = head;
             if(currentNode.next==null) {
                 head = null;
@@ -71,6 +78,7 @@ public class CustomLinkedList<T> implements CustomList<T>{
                 currentNode.next=null;
             }
         }
+        return value;
     }
 
     @Override
@@ -91,13 +99,14 @@ public class CustomLinkedList<T> implements CustomList<T>{
     }
 
     @Override
-    public void printAll() {
+    public List<T> getAll() {
+        List<T> resultList = new LinkedList<>();
         Node<T> currentNode = head;
         while (currentNode != null) {
-            System.out.print(currentNode.data + " ");
+            resultList.add(currentNode.data);
             currentNode = currentNode.next;
         }
-        System.out.println();
+        return resultList;
     }
 
     @Override
@@ -117,7 +126,7 @@ public class CustomLinkedList<T> implements CustomList<T>{
         }
     }
 
-    private Node<T> getTail(){
+    private Node<T> getTailNode(){
         Node<T> temp = head;
         while (temp.next!=null){
             temp=temp.next;

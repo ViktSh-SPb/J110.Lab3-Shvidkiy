@@ -1,5 +1,6 @@
 package org.viktsh;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public interface CustomList<T> extends Iterable<T>{
@@ -7,19 +8,19 @@ public interface CustomList<T> extends Iterable<T>{
 
     void addToTail(T data);
 
-    void printHead();
+    T getHead();
 
-    void printHeadDelete();
+    T getHeadDelete();
 
-    void printTail();
+    T getTail();
 
-    void printTailDelete();
+    T getTailDelete();
 
     boolean contains(T value);
 
     boolean isEmpty();
 
-    void printAll();
+    List<T> getAll();
 
     void deleteValue(T value);
 

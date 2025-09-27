@@ -301,5 +301,22 @@ public class MainClass {
         tailList1.addToTail(15);
         elList.addCustomEListToTail(tailList1);
         elList.printAll();
+
+        // Мой тест. Удалить
+        System.out.println("++++++++++++++++++++++++++++++++++++");
+        elList = new CustomExpandedLinkedList<>();
+        elList.printHead();
+        elList.printHeadDelete();
+        elList.printTail();
+        elList.printTailDelete();
+        elList.addToTail(10);
+        elList.printTailDelete();
+        elList.printAll();
+        elList.addToTail(11);
+        elList.printTailDelete();
+        elList.printAll();
+        elList.addToHead(12);
+        elList.printHeadDelete();
+        elList.printAll();
     }
 }
