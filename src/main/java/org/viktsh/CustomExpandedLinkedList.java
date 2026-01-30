@@ -119,17 +119,19 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
     }
 
-    public void printHead() {
-        System.out.println(head.data[0]);
+    public T getHead() {
+        return (head.data[0]);
     }
 
-    public void printHeadDelete() {
+    public T getHeadDelete() {
+        T value = null;
         if (!isEmpty()) {
-            System.out.println(head.removeFromNodeHead());
+            value =  (head.removeFromNodeHead());
             if (head.isEmpty()) {
                 head = head.next;
             }
         }
+        return value;
     }
 
     public void addToTail(T value) {

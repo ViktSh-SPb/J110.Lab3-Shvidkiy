@@ -29,26 +29,9 @@ public class CustomLinkedList<T> implements CustomList<T>{
     }
 
     @Override
-    public void addToTail(T data) {
-        if (isEmpty()) {
-            head = new Node<>(data);
-        } else {
-            getTailNode().next = new Node<>(data);
-        }
-    }
-
-    @Override
     public T getHead() {
         if (!isEmpty()) {
             return head.data;
-        }
-        return null;
-    }
-
-    @Override
-    public T getTail() {
-        if (!isEmpty()) {
-            return getTailNode().data;
         }
         return null;
     }
@@ -61,6 +44,23 @@ public class CustomLinkedList<T> implements CustomList<T>{
             head = head.next;
         }
         return value;
+    }
+
+    @Override
+    public void addToTail(T data) {
+        if (isEmpty()) {
+            head = new Node<>(data);
+        } else {
+            getTailNode().next = new Node<>(data);
+        }
+    }
+
+    @Override
+    public T getTail() {
+        if (!isEmpty()) {
+            return getTailNode().data;
+        }
+        return null;
     }
 
     @Override
@@ -126,14 +126,6 @@ public class CustomLinkedList<T> implements CustomList<T>{
         }
     }
 
-    private Node<T> getTailNode(){
-        Node<T> temp = head;
-        while (temp.next!=null){
-            temp=temp.next;
-        }
-        return temp;
-    }
-
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
@@ -155,4 +147,11 @@ public class CustomLinkedList<T> implements CustomList<T>{
         };
     }
 
+    private Node<T> getTailNode(){
+        Node<T> temp = head;
+        while (temp.next!=null){
+            temp=temp.next;
+        }
+        return temp;
+    }
 }

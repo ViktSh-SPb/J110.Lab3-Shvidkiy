@@ -1,8 +1,11 @@
 package org.viktsh;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
+import org.viktsh.CustomLinkedList.Node;
 
 public class CustomTwoLinkedList<T> implements CustomList<T>{
     private Node<T> head;
@@ -33,18 +36,21 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
     }
 
     @Override
-    public void printHead() {
+    public T getHead() {
         if (!isEmpty()) {
-            System.out.println("head is " + head.data);
+            return head.data;
         }
+        return null;
     }
 
     @Override
-    public void printHeadDelete() {
+    public T getHeadDelete() {
+        T value = null;
         if (!isEmpty()) {
-            System.out.println("head is " + head.data);
+            value = head.data;
             headDelete();
         }
+        return value;
     }
 
     @Override
@@ -64,18 +70,21 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
     }
 
     @Override
-    public void printTail() {
+    public T getTail() {
         if (!isEmpty()) {
-            System.out.println("tail is " + tail.data);
+            return tail.data;
         }
+        return null;
     }
 
     @Override
-    public void printTailDelete() {
+    public T getTailDelete() {
+        T value = null;
         if (!isEmpty()) {
-            System.out.println("tail is " + tail.data);
+            value = tail.data;
             tailDelete();
         }
+        return value;
     }
 
     @Override
@@ -98,18 +107,24 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
     }
 
     @Override
-    public void printAll() {
-        processEach(item-> System.out.print(item+" "));
-        System.out.println();
+    public List<T> getAll() {
+        List<T> resultList = new LinkedList<>();
+        Node<T> currentNode = head;
+        while (currentNode != null) {
+            resultList.add(currentNode.data);
+            currentNode = currentNode.next;
+        }
+        return resultList;
     }
 
-    public void printAllReverse() {
+    public List<T> getAllReverse() {
+        List<T> resultList = new LinkedList<>();
         Node<T> currentNode = tail;
         while (currentNode != null) {
-            System.out.print(currentNode.data + " ");
+            resultList.add(currentNode.data);
             currentNode = currentNode.prev;
         }
-        System.out.println();
+        return resultList;
     }
 
     @Override
@@ -142,23 +157,6 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
         head.prev=tempList.tail;
         tempList.tail.next=head;
         head=tempList.head;
-    }
-
-    private void tailDelete() {
-        if (tail == head) {
-            head = null;
-            tail = null;
-        } else {
-            tail=tail.prev;
-            tail.next=null;
-        }
-    }
-
-    private void headDelete() {
-            head = head.next;
-            if (head == null) {
-                tail = null;
-            }else {head.prev=null;}
     }
 
     public void addIterableToHead(Iterable<T>input){
@@ -222,5 +220,22 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
                 return data;
             }
         };
+    }
+
+    private void headDelete() {
+        head = head.next;
+        if (head == null) {
+            tail = null;
+        }else {head.prev=null;}
+    }
+
+    private void tailDelete() {
+        if (tail == head) {
+            head = null;
+            tail = null;
+        } else {
+            tail=tail.prev;
+            tail.next=null;
+        }
     }
 }
