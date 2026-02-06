@@ -120,7 +120,10 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public T getHead() {
-        return (head.data[0]);
+        if(!isEmpty()){
+            return (head.data[0]);
+        }
+        return null;
     }
 
     public T getHeadDelete() {
@@ -138,28 +141,47 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         if (isEmpty()) {
             addToHead(value);
         } else {
-            Node<T> tail = getTail();
+            Node<T> tail = getTailNode();
             if (tail.isFull()) {
                 tail.next = new Node<>(value);
             } else {
                 tail.addToNodeTail(value);
             }
         }
-
     }
 
-    public void printTail() {
+    public T getTail() {
         if (!isEmpty()) {
-            Node<T> tail = getTail();
-            System.out.println(tail.getNodeTail());
+            Node<T> tail = getTailNode();
+            return tail.getNodeTail();
         }
+        return null;
     }
 
-    public void printTailDelete() {
-        if (!isEmpty()) {
-            Node<T> tail = getTail();
-            System.out.println(tail.removeFromNodeTail());
+    public T getTailDelete() {
+        if (isEmpty()) return null;
+
+        if (head.next == null) {
+            T value = head.removeFromNodeTail();
+            if (head.isEmpty()) head = null;
+            return value;
         }
+
+        Node<T> prev = head;
+        Node<T> curr = head.next;
+
+        while (curr.next != null) {
+            prev = curr;
+            curr = curr.next;
+        }
+
+        T value = curr.removeFromNodeTail();
+
+        if (curr.isEmpty()) {
+            prev.next = null;
+        }
+
+        return value;
     }
 
     public boolean contains(T value) {
@@ -173,18 +195,13 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
 
     public void deleteValue(T value) {
         CustomExpandedLinkedList<T> temp = new CustomExpandedLinkedList<>();
-        if (this.contains(value)) {
-            for (T element : this) {
-                if (!element.equals(value)) {
-                    temp.addToTail(element);
-                }
-            }
-            if (temp.isEmpty()) {
-                this.head = null;
-            } else {
-                this.head = temp.head;
+        for (T element : this) {
+            if (!Objects.equals(element, value)) {
+                temp.addToTail(element);
             }
         }
+
+        this.head = temp.head;
     }
 
     public boolean isEmpty() {
@@ -239,7 +256,7 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         input.head=null;
     }
 
-    private Node<T> getTail() {
+    private Node<T> getTailNode() {
         Node<T> temp = head;
         while (temp.next != null) {
             temp = temp.next;
