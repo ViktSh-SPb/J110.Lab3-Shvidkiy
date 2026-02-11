@@ -35,7 +35,7 @@ public class MainClass {
         System.out.println(lList.getTail());
         //Извлечение значения из конца списка с удалением
         System.out.println("Выводим последний элемент списка и удаляем.");
-        System.out.println(lList.getHeadDelete());
+        System.out.println(lList.getTailDelete());
         System.out.println("Теперь последний элемент списка:");
         System.out.println(lList.getTail());
         //Определение, содержит ли список заданное значение, или нет
@@ -161,7 +161,7 @@ public class MainClass {
         tlList.addIterableToTail(ll1);
         System.out.println(tlList.getAll());
         //Поглощение списка другим списком с добавлением значений второго в начало/конец первого списка
-        System.out.println("Добавляем список headList со значениями -9, -10, -11 в начало списка:");
+        System.out.println("Поглощение списка. Добавляем список headList со значениями -9, -10, -11 в начало списка:");
         CustomTwoLinkedList<Integer> headList = new CustomTwoLinkedList<>();
         headList.addToTail(-11);
         headList.addToTail(-10);
@@ -200,33 +200,33 @@ public class MainClass {
         for (int i = 4; i >= 0; i--) {
             elList.addToHead(i);
         }
-        elList.printAll();
+        System.out.println(elList.getAll());
         //Извлечение значения из начала списка без его удаления
         System.out.println("Первый элемент списка:");
-        elList.printHead();
+        System.out.println(elList.getHead());
         //Извлечение значения из начала списка с удалением из списка
         System.out.println("Выводим первый элемент списка и удаляем.");
-        elList.printHeadDelete();
+        System.out.println(elList.getHeadDelete());
         System.out.println("Теперь первый элемент:");
-        elList.printHead();
+        System.out.println(elList.getHead());
         //Добавление значения в конец списка
         System.out.println("Добавляем в конец 5, 6.");
         elList.addToTail(5);
         elList.addToTail(6);
         //Извлечение значения из конца списка без его удаления
         System.out.println("Последний элемент списка:");
-        elList.printTail();
+        System.out.println(elList.getTail());
         //Извлечение значения из конца списка с удалением
         System.out.println("Выводим последний элемент списка и удаляем.");
-        elList.printTailDelete();
+        System.out.println(elList.getTailDelete());
         System.out.println("Теперь последний элемент списка:");
-        elList.printTail();
+        System.out.println(elList.getTail());
         //Определение, содержит ли список заданное значение, или нет
         System.out.println("Содержит ли список значение 1: " + elList.contains(1));
         System.out.println("Содержит ли список значение 10: " + elList.contains(10));
         //Печать всех значений списка
         System.out.print("Все значения списка: ");
-        elList.printAll();
+        System.out.println(elList.getAll());
         //Определение, является ли список пустым
         System.out.println("Является ли список пустым: " + elList.isEmpty());
         System.out.println("Удаляем все элементы из списка.");
@@ -234,23 +234,21 @@ public class MainClass {
         System.out.println("Является ли список пустым: " + elList.isEmpty());
         //Печать всех значений списка
         System.out.println("Все значения списка: ");
-        elList.printAll();
+        System.out.println(elList.getAll());
         //Удаление заданного значения из списка
-        System.out.println("создаем новый список из 3,1,2,3,4,5,3");
+        System.out.println("создаем новый список из 100,1,2,100,3,4,5,100");
         for (int i = 1; i <6; i++) {
+            if(i==3) elList.addToTail(100);
             elList.addToTail(i);
         }
-        elList.printAll();
-        elList.addToHead(3);
-        elList.addToTail(3);
+        System.out.println(elList.getAll());
+        elList.addToHead(100);
+        elList.addToTail(100);
         System.out.print("Все значения списка: ");
-        elList.printAll();
+        System.out.println(elList.getAll());
         System.out.println("Удаляем значения 100 из списка:");
         elList.deleteValue(100);
-        elList.printAll();
-        System.out.println("Удаляем значения 3 из списка:");
-        elList.deleteValue(3);
-        elList.printAll();
+        System.out.println(elList.getAll());
         //Выполнение действия, заданного в параметре метода, для каждого значения списка
         System.out.println("Выполняем действие над всеми - выводим на экран, является ли элемент четным:");
         elList.processEach(n -> {
@@ -261,29 +259,29 @@ public class MainClass {
         System.out.println("Добавляем значения массива из 4-х чисел (-3, -2, -1, 0) в начало списка:");
         Integer[] array = {-3, -2, -1, 0};
         elList.addArrayToHead(array);
-        elList.printAll();
+        System.out.println(elList.getAll());
         //Добавление всех значений заданной коллекции в начало списка с сохранением порядка
         System.out.println("Добавляем коллекцию arrayList из четырех элементов (-7, -6, -5, -4) в начало списка:");
         List<Integer> alist = new ArrayList<>(Arrays.asList(-7, -6, -5, -4));
         elList.addIterableToHead(alist);
-        elList.printAll();
+        System.out.println(elList.getAll());
         System.out.println("Добавляем коллекцию linkedList из четырех элементов (-11, -10, -9, -8) в начало списка:");
         List<Integer> llist = new LinkedList<>(Arrays.asList(-11, -10, -9, -8));
         elList.addIterableToHead(llist);
-        elList.printAll();
+        System.out.println(elList.getAll());
         //Добавление всех значений заданного массива/коллекции в конец списка
         System.out.println("Добавляем значения массива из 2-х чисел (6, 7) в конец списка:");
         Integer[] array1 = {6, 7};
         elList.addArrayToTail(array1);
-        elList.printAll();
+        System.out.println(elList.getAll());
         System.out.println("Добавляем коллекцию arrayList из двух элементов (8, 9) в конец списка:");
         List<Integer> alist1 = new ArrayList<>(Arrays.asList(8, 9));
         elList.addIterableToTail(alist1);
-        elList.printAll();
+        System.out.println(elList.getAll());
         System.out.println("Добавляем коллекцию linkedList из двух элементов (10, 11) в конец списка:");
         List<Integer> llist1 = new ArrayList<>(Arrays.asList(10, 11));
         elList.addIterableToTail(llist1);
-        elList.printAll();
+        System.out.println(elList.getAll());
         //Поглощение списка другим списком с добавлением значений второго в начало/конец первого списка
         System.out.println("Добавляем список headList со значениями -12, -13, -14, -15 в начало списка:");
         CustomExpandedLinkedList<Integer> headList1 = new CustomExpandedLinkedList<>();
@@ -292,7 +290,7 @@ public class MainClass {
         headList1.addToTail(-13);
         headList1.addToTail(-12);
         elList.addCustomEListToHead(headList1);
-        elList.printAll();
+        System.out.println(elList.getAll());
         System.out.println("Добавляем список tailList со значениями 12, 13, 14, 15 в конец списка:");
         CustomExpandedLinkedList<Integer> tailList1 = new CustomExpandedLinkedList<>();
         tailList1.addToTail(12);
@@ -300,23 +298,23 @@ public class MainClass {
         tailList1.addToTail(14);
         tailList1.addToTail(15);
         elList.addCustomEListToTail(tailList1);
-        elList.printAll();
+        System.out.println(elList.getAll());
 
         // Мой тест. Удалить
         System.out.println("++++++++++++++++++++++++++++++++++++");
         elList = new CustomExpandedLinkedList<>();
-        elList.printHead();
-        elList.printHeadDelete();
-        elList.printTail();
-        elList.printTailDelete();
+        System.out.println(elList.getHead());
+        System.out.println(elList.getHeadDelete());
+        System.out.println(elList.getTail());
+        System.out.println(elList.getTailDelete());
         elList.addToTail(10);
-        elList.printTailDelete();
-        elList.printAll();
+        System.out.println(elList.getTailDelete());
+        System.out.println(elList.getAll());
         elList.addToTail(11);
-        elList.printTailDelete();
-        elList.printAll();
+        System.out.println(elList.getTailDelete());
+        System.out.println(elList.getAll());
         elList.addToHead(12);
-        elList.printHeadDelete();
-        elList.printAll();
+        System.out.println(elList.getHeadDelete());
+        System.out.println(elList.getAll());
     }
 }

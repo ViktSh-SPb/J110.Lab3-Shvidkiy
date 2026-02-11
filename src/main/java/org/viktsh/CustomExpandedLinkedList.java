@@ -2,6 +2,8 @@ package org.viktsh;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -208,11 +210,12 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         return (head == null);
     }
 
-    public void printAll() {
+    public List<T> getAll() {
+        List<T> resultList = new LinkedList<>();
         for (T element : this) {
-            System.out.print(element+" ");
+            resultList.add(element);
         }
-        System.out.println();
+        return resultList;
     }
 
     public void addArrayToHead(T[] input) {
@@ -226,8 +229,9 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
         }
         if (temp.isEmpty()) {
             return;
-        } else if (temp.getTail().isFull()) {
-            temp.getTail().next = this.head;
+        }
+        if (temp.getTailNode().isFull()) {
+            temp.getTailNode().next = this.head;
         } else {
             for (T element : this) {
                 temp.addToTail(element);

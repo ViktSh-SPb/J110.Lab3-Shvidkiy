@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
-import org.viktsh.CustomLinkedList.Node;
 
 public class CustomTwoLinkedList<T> implements CustomList<T>{
     private Node<T> head;
