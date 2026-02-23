@@ -299,16 +299,5 @@ public class MainClass {
         tailList1.addToTail(15);
         elList.addCustomEListToTail(tailList1);
         System.out.println(elList.getAll());
-
-        // Мой тест. Удалить
-        System.out.println("++++++++++++++++++++++++++++++++++++");
-        lList.addToHead(null);
-        lList.addToTail(10);
-        lList.addToTail(10);
-        lList.addToTail(10);
-        System.out.println(lList.getAll());
-        System.out.println(lList.contains(1));
-        lList.deleteValue(10);
-        System.out.println(lList.getAll());
     }
 }
