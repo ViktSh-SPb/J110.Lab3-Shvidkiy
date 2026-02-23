@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class CustomLinkedList<T> implements CustomList<T>{
     private Node<T> head;
@@ -85,7 +86,7 @@ public class CustomLinkedList<T> implements CustomList<T>{
     public boolean contains(T value) {
         Node<T> currentNode = head;
         while (currentNode != null) {
-            if (currentNode.data.equals(value)) {
+            if (Objects.equals(currentNode.data, value)) {
                 return true;
             }
             currentNode = currentNode.next;
@@ -114,15 +115,18 @@ public class CustomLinkedList<T> implements CustomList<T>{
         Node<T> currentNode = head;
         Node<T> previousNode = null;
         while (currentNode!=null){
-            if(currentNode.data.equals(value)){
+            if(Objects.equals(currentNode.data, value)){
                 if(currentNode==head){
                     head = currentNode.next;
+                    currentNode = head;
                 }else {
                     previousNode.next=currentNode.next;
+                    currentNode = previousNode.next;
                 }
+            } else {
+                previousNode=currentNode;
+                currentNode=currentNode.next;
             }
-            previousNode=currentNode;
-            currentNode=currentNode.next;
         }
     }
 

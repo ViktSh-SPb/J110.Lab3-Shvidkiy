@@ -302,19 +302,13 @@ public class MainClass {
 
         // Мой тест. Удалить
         System.out.println("++++++++++++++++++++++++++++++++++++");
-        elList = new CustomExpandedLinkedList<>();
-        System.out.println(elList.getHead());
-        System.out.println(elList.getHeadDelete());
-        System.out.println(elList.getTail());
-        System.out.println(elList.getTailDelete());
-        elList.addToTail(10);
-        System.out.println(elList.getTailDelete());
-        System.out.println(elList.getAll());
-        elList.addToTail(11);
-        System.out.println(elList.getTailDelete());
-        System.out.println(elList.getAll());
-        elList.addToHead(12);
-        System.out.println(elList.getHeadDelete());
-        System.out.println(elList.getAll());
+        lList.addToHead(null);
+        lList.addToTail(10);
+        lList.addToTail(10);
+        lList.addToTail(10);
+        System.out.println(lList.getAll());
+        System.out.println(lList.contains(1));
+        lList.deleteValue(10);
+        System.out.println(lList.getAll());
     }
 }
