@@ -20,13 +20,9 @@ public class CustomLinkedList<T> implements CustomList<T>{
 
     @Override
     public void addToHead(T data) {
-        if (isEmpty()) {
-            head = new Node<>(data);
-        } else {
-            Node<T> temp=new Node<>(data);
-            temp.next=head;
-            head=temp;
-        }
+        Node<T> temp=new Node<>(data);
+        temp.next=head;
+        head=temp;
     }
 
     @Override
