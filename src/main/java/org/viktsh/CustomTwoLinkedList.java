@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class CustomTwoLinkedList<T> implements CustomList<T>{
@@ -54,17 +55,14 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
 
     @Override
     public void addToTail(T data) {
+        Node<T> node = new Node<>(data);
         if (isEmpty()) {
-            head = new Node<>(data);
+            head = node;
             tail=head;
         } else {
-            Node<T> temp = head;
-            while (temp.next != null) {
-                temp = temp.next;
-            }
-            temp.next = new Node<>(data);
-            tail=temp.next;
-            tail.prev=temp;
+            tail.next = node;
+            node.prev = tail;
+            tail = node;
         }
     }
 
@@ -91,7 +89,7 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
         boolean contains = false;
         Node<T> currentNode = head;
         while (currentNode != null) {
-            if (currentNode.data == value) {
+            if (Objects.equals(currentNode.data, value)) {
                 contains = true;
                 break;
             }
@@ -132,7 +130,7 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
         Node<T> previousNode = new Node<>(null);
         Node<T> nextNode = head!=null?head.next:null;
         while (currentNode!=null){
-            if(currentNode.data==value){
+            if(Objects.equals(currentNode.data, value)){
                 if(currentNode==head){
                     headDelete();
                 }else if(currentNode==tail){
