@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class CustomLinkedList<T> implements CustomList<T>{
+public class CustomLinkedList<T> implements CustomList<T> {
+
     private Node<T> head;
 
     private static class Node<T> {
+
         private final T data;
         private Node<T> next;
 
@@ -20,9 +22,9 @@ public class CustomLinkedList<T> implements CustomList<T>{
 
     @Override
     public void addToHead(T data) {
-        Node<T> temp=new Node<>(data);
-        temp.next=head;
-        head=temp;
+        Node<T> temp = new Node<>(data);
+        temp.next = head;
+        head = temp;
     }
 
     @Override
@@ -45,35 +47,37 @@ public class CustomLinkedList<T> implements CustomList<T>{
 
     @Override
     public void addToTail(T data) {
-        if (isEmpty()) {
+        Node<T> tail = getTailNode();
+        if (tail == null) {
             head = new Node<>(data);
-        } else {
-            getTailNode().next = new Node<>(data);
+            return;
         }
+        tail.next = new Node<>(data);
     }
 
     @Override
     public T getTail() {
-        if (!isEmpty()) {
-            return getTailNode().data;
-        }
-        return null;
+        Node<T> tail = getTailNode();
+        return (tail != null) ? tail.data : null;
     }
 
     @Override
     public T getTailDelete() {
-        T value = null;
-        if (!isEmpty()) {
-            value = getTailNode().data;
-            Node<T> currentNode = head;
-            if(currentNode.next==null) {
-                head = null;
-            }else {
-                while (currentNode.next.next!=null){
-                    currentNode=currentNode.next;
-                }
-                currentNode.next=null;
+        Node<T> current = head;
+
+        if (current == null) {
+            return null;
+        }
+
+        T value = current.data;
+        if (current.next == null) {
+            head = null;
+        } else {
+            while (current.next.next !=null) {
+                current = current.next;
             }
+            value = current.next.data;
+            current.next = null;
         }
         return value;
     }
@@ -107,21 +111,21 @@ public class CustomLinkedList<T> implements CustomList<T>{
     }
 
     @Override
-    public void deleteValue(T value){
+    public void deleteValue(T value) {
         Node<T> currentNode = head;
         Node<T> previousNode = null;
-        while (currentNode!=null){
-            if(Objects.equals(currentNode.data, value)){
-                if(currentNode==head){
+        while (currentNode != null) {
+            if (Objects.equals(currentNode.data, value)) {
+                if (currentNode == head) {
                     head = currentNode.next;
                     currentNode = head;
-                }else {
-                    previousNode.next=currentNode.next;
+                } else {
+                    previousNode.next = currentNode.next;
                     currentNode = previousNode.next;
                 }
             } else {
-                previousNode=currentNode;
-                currentNode=currentNode.next;
+                previousNode = currentNode;
+                currentNode = currentNode.next;
             }
         }
     }
@@ -130,27 +134,32 @@ public class CustomLinkedList<T> implements CustomList<T>{
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private Node<T> current = head;
+
             @Override
             public boolean hasNext() {
-                return current!=null;
+                return current != null;
             }
 
             @Override
             public T next() {
-                if(!hasNext()){
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 T data = current.data;
-                current=current.next;
+                current = current.next;
                 return data;
             }
         };
     }
 
-    private Node<T> getTailNode(){
+    private Node<T> getTailNode() {
+        if (head == null) {
+            return null;
+        }
+
         Node<T> temp = head;
-        while (temp.next!=null){
-            temp=temp.next;
+        while (temp.next != null) {
+            temp = temp.next;
         }
         return temp;
     }
