@@ -29,10 +29,10 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
     @Override
     public T getHead() {
-        if (!isEmpty()) {
-            return head.data;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
         }
-        return null;
+        return head.data;
     }
 
     @Override
@@ -58,7 +58,10 @@ public class CustomLinkedList<T> implements CustomList<T> {
     @Override
     public T getTail() {
         Node<T> tail = getTailNode();
-        return (tail != null) ? tail.data : null;
+        if(tail==null){
+            throw new NoSuchElementException();
+        }
+        return tail.data;
     }
 
     @Override

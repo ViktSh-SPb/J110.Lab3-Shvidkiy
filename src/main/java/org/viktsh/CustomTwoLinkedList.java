@@ -7,12 +7,14 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class CustomTwoLinkedList<T> implements CustomList<T>{
+public class CustomTwoLinkedList<T> implements CustomList<T> {
+
     private Node<T> head;
     private Node<T> tail;
 
 
     private static class Node<T> {
+
         private T data;
         private Node<T> next;
         private Node<T> prev;
@@ -26,12 +28,12 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
     public void addToHead(T data) {
         if (isEmpty()) {
             head = new Node<>(data);
-            tail=head;
+            tail = head;
         } else {
             Node<T> temp = new Node<>(data);
             head.prev = temp;
-            temp.next=head;
-            head=temp;
+            temp.next = head;
+            head = temp;
         }
     }
 
@@ -58,7 +60,7 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
         Node<T> node = new Node<>(data);
         if (isEmpty()) {
             head = node;
-            tail=head;
+            tail = head;
         } else {
             tail.next = node;
             node.prev = tail;
@@ -125,72 +127,81 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
     }
 
     @Override
-    public void deleteValue(T value){
-        Node<T> currentNode = head;
-        Node<T> previousNode = new Node<>(null);
-        Node<T> nextNode = head!=null?head.next:null;
-        while (currentNode!=null){
-            if(Objects.equals(currentNode.data, value)){
-                if(currentNode==head){
+    public void deleteValue(T value) {
+        Node<T> current = head;
+        while (current != null) {
+            if (Objects.equals(current.data, value)) {
+                if (current == head) {
                     headDelete();
-                }else if(currentNode==tail){
-                    tailDelete();
-                }else {
-                    previousNode.next=nextNode;
-                    nextNode.prev=previousNode;
+                    current = head;
+                    continue;
                 }
+                if (current == tail) {
+                    tailDelete();
+                    break;
+                }
+                current.prev.next = current.next;
+                current.next.prev = current.prev;
+                current = current.next;
+            } else {
+                current = current.next;
             }
-            previousNode=currentNode;
-            currentNode=currentNode.next;
-            nextNode=(currentNode!=null)?currentNode.next:null;
         }
     }
 
-    public void addArrayToHead(T[] input){
+    public void addArrayToHead(T[] input) {
         CustomTwoLinkedList<T> tempList = new CustomTwoLinkedList<>();
-        for (T i:input){
+        for (T i : input) {
             tempList.addToTail(i);
         }
-        head.prev=tempList.tail;
-        tempList.tail.next=head;
-        head=tempList.head;
+
+        if (tempList.isEmpty()) return;
+
+        if (isEmpty()) {
+            head = tempList.head;
+            tail = tempList.tail;
+        } else {
+            head.prev = tempList.tail;
+            tempList.tail.next = head;
+            head = tempList.head;
+        }
     }
 
-    public void addIterableToHead(Iterable<T>input){
+    public void addIterableToHead(Iterable<T> input) {
         CustomTwoLinkedList<T> tempList = new CustomTwoLinkedList<>();
-        for (T i:input){
+        for (T i : input) {
             tempList.addToTail(i);
         }
-        head.prev=tempList.tail;
-        tempList.tail.next=head;
-        head=tempList.head;
+        head.prev = tempList.tail;
+        tempList.tail.next = head;
+        head = tempList.head;
     }
 
-    public void addArrayToTail(T[]input){
-        for(T i:input){
+    public void addArrayToTail(T[] input) {
+        for (T i : input) {
             addToTail(i);
         }
     }
 
-    public void addIterableToTail(Iterable<T>input){
-        for (T i:input){
+    public void addIterableToTail(Iterable<T> input) {
+        for (T i : input) {
             addToTail(i);
         }
     }
 
-    public void addCustomTwoLinkedListToHead(CustomTwoLinkedList<T> input){
+    public void addCustomTwoLinkedListToHead(CustomTwoLinkedList<T> input) {
         head.prev = input.tail;
         input.tail.next = head;
-        head=input.head;
+        head = input.head;
     }
 
-    public void addCustomTwoLinkedListToTail(CustomTwoLinkedList<T> input){
-        tail.next=input.head;
-        input.head.prev=tail;
-        tail=input.tail;
+    public void addCustomTwoLinkedListToTail(CustomTwoLinkedList<T> input) {
+        tail.next = input.head;
+        input.head.prev = tail;
+        tail = input.tail;
     }
 
-    public void processEachReverse(Consumer<T> consumer){
+    public void processEachReverse(Consumer<T> consumer) {
         Node<T> currentNode = tail;
         while (currentNode != null) {
             consumer.accept(currentNode.data);
@@ -202,18 +213,19 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private Node<T> current = head;
+
             @Override
             public boolean hasNext() {
-                return current!=null;
+                return current != null;
             }
 
             @Override
             public T next() {
-                if(!hasNext()){
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 T data = current.data;
-                current=current.next;
+                current = current.next;
                 return data;
             }
         };
@@ -223,7 +235,9 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
         head = head.next;
         if (head == null) {
             tail = null;
-        }else {head.prev=null;}
+        } else {
+            head.prev = null;
+        }
     }
 
     private void tailDelete() {
@@ -231,8 +245,8 @@ public class CustomTwoLinkedList<T> implements CustomList<T>{
             head = null;
             tail = null;
         } else {
-            tail=tail.prev;
-            tail.next=null;
+            tail = tail.prev;
+            tail.next = null;
         }
     }
 }
