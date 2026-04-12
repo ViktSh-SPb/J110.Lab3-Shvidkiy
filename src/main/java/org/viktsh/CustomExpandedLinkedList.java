@@ -122,20 +122,20 @@ public class CustomExpandedLinkedList<T> implements CustomList<T> {
     }
 
     public T getHead() {
-        if(!isEmpty()){
-            return ((T) head.data[0]);
+        if(isEmpty()){
+            throw new NoSuchElementException();
         }
-        return null;
+            return (T) head.data[0];
     }
 
     public T getHeadDelete() {
-        T value = null;
-        if (!isEmpty()) {
-            value =  (head.removeFromNodeHead());
+        if(isEmpty()){
+            throw new NoSuchElementException();
+        }
+        T value  =  (head.removeFromNodeHead());
             if (head.isEmpty()) {
                 head = head.next;
             }
-        }
         return value;
     }
 

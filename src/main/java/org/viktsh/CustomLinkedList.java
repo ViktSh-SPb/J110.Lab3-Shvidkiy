@@ -37,11 +37,11 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
     @Override
     public T getHeadDelete() {
-        T value = null;
-        if (!isEmpty()) {
-            value = head.data;
-            head = head.next;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
         }
+        T value = head.data;
+        head = head.next;
         return value;
     }
 
@@ -66,12 +66,11 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
     @Override
     public T getTailDelete() {
-        Node<T> current = head;
-
-        if (current == null) {
-            return null;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
         }
 
+        Node<T> current = head;
         T value = current.data;
         if (current.next == null) {
             head = null;
