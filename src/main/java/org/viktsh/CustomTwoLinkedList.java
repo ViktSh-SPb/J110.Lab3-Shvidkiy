@@ -1,5 +1,6 @@
 package org.viktsh;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,19 +40,19 @@ public class CustomTwoLinkedList<T> implements CustomList<T> {
 
     @Override
     public T getHead() {
-        if (!isEmpty()) {
-            return head.data;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
         }
-        return null;
+        return head.data;
     }
 
     @Override
     public T getHeadDelete() {
-        T value = null;
-        if (!isEmpty()) {
-            value = head.data;
-            headDelete();
+        if (isEmpty()) {
+            throw new NoSuchElementException();
         }
+        T value = head.data;
+        headDelete();
         return value;
     }
 
@@ -70,19 +71,19 @@ public class CustomTwoLinkedList<T> implements CustomList<T> {
 
     @Override
     public T getTail() {
-        if (!isEmpty()) {
-            return tail.data;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
         }
-        return null;
+        return tail.data;
     }
 
     @Override
     public T getTailDelete() {
-        T value = null;
-        if (!isEmpty()) {
-            value = tail.data;
-            tailDelete();
+        if (isEmpty()) {
+            throw new NoSuchElementException();
         }
+        T value = tail.data;
+        tailDelete();
         return value;
     }
 
@@ -150,12 +151,18 @@ public class CustomTwoLinkedList<T> implements CustomList<T> {
     }
 
     public void addArrayToHead(T[] input) {
+        addIterableToHead(Arrays.asList(input));
+    }
+
+    public void addIterableToHead(Iterable<T> input) {
         CustomTwoLinkedList<T> tempList = new CustomTwoLinkedList<>();
         for (T i : input) {
             tempList.addToTail(i);
         }
 
-        if (tempList.isEmpty()) return;
+        if (tempList.isEmpty()) {
+            return;
+        }
 
         if (isEmpty()) {
             head = tempList.head;
@@ -167,20 +174,8 @@ public class CustomTwoLinkedList<T> implements CustomList<T> {
         }
     }
 
-    public void addIterableToHead(Iterable<T> input) {
-        CustomTwoLinkedList<T> tempList = new CustomTwoLinkedList<>();
-        for (T i : input) {
-            tempList.addToTail(i);
-        }
-        head.prev = tempList.tail;
-        tempList.tail.next = head;
-        head = tempList.head;
-    }
-
     public void addArrayToTail(T[] input) {
-        for (T i : input) {
-            addToTail(i);
-        }
+        addIterableToTail(Arrays.asList(input));
     }
 
     public void addIterableToTail(Iterable<T> input) {
@@ -190,15 +185,33 @@ public class CustomTwoLinkedList<T> implements CustomList<T> {
     }
 
     public void addCustomTwoLinkedListToHead(CustomTwoLinkedList<T> input) {
-        head.prev = input.tail;
-        input.tail.next = head;
-        head = input.head;
+        if (input == null || input.isEmpty()) {
+            return;
+        }
+
+        if (isEmpty()) {
+            head = input.head;
+            tail = input.tail;
+        }else{
+            head.prev = input.tail;
+            input.tail.next = head;
+            head = input.head;
+        }
     }
 
     public void addCustomTwoLinkedListToTail(CustomTwoLinkedList<T> input) {
-        tail.next = input.head;
-        input.head.prev = tail;
-        tail = input.tail;
+        if (input == null || input.isEmpty()) {
+            return;
+        }
+
+        if (isEmpty()) {
+            head = input.head;
+            tail = input.tail;
+        }else{
+            tail.next = input.head;
+            input.head.prev = tail;
+            tail = input.tail;
+        }
     }
 
     public void processEachReverse(Consumer<T> consumer) {
